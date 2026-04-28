@@ -1,0 +1,224 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-popover-border: hsl(var(--popover-border));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-neon-green: #00ff88;
+  --color-neon-blue: #00d9ff;
+  --color-neon-red: #ff2d2d;
+
+  --font-sans: var(--app-font-sans);
+  --font-serif: var(--app-font-serif);
+  --font-mono: var(--app-font-mono);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --background: 0 0% 5%;
+  --foreground: 0 0% 95%;
+
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 154 100% 50%; /* neon green */
+
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 95%;
+  --card-border: 0 0% 20%;
+
+  --popover: 0 0% 8%;
+  --popover-foreground: 0 0% 95%;
+  --popover-border: 0 0% 20%;
+
+  --primary: 154 100% 50%;
+  --primary-foreground: 0 0% 5%;
+
+  --secondary: 0 0% 15%;
+  --secondary-foreground: 0 0% 95%;
+
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 65%;
+
+  --accent: 190 100% 50%; /* neon blue */
+  --accent-foreground: 0 0% 5%;
+
+  --destructive: 0 100% 59%; /* neon red */
+  --destructive-foreground: 0 0% 95%;
+
+  --app-font-sans: 'Archivo Black', sans-serif;
+  --app-font-serif: 'Fraunces', serif;
+  --app-font-mono: 'JetBrains Mono', monospace;
+  
+  --radius: 0rem; /* Brutalist = sharp edges */
+}
+
+.dark {
+  --background: 0 0% 3%;
+  --foreground: 0 0% 95%;
+
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 154 100% 50%;
+
+  --card: 0 0% 6%;
+  --card-foreground: 0 0% 95%;
+  --card-border: 0 0% 20%;
+
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 95%;
+  --popover-border: 0 0% 20%;
+
+  --primary: 154 100% 50%;
+  --primary-foreground: 0 0% 3%;
+
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 0 0% 95%;
+
+  --muted: 0 0% 12%;
+  --muted-foreground: 0 0% 65%;
+
+  --accent: 190 100% 50%;
+  --accent-foreground: 0 0% 3%;
+
+  --destructive: 0 100% 59%;
+  --destructive-foreground: 0 0% 95%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    @apply bg-background text-foreground antialiased;
+    overflow-x: hidden;
+  }
+  
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+}
+
+@layer utilities {
+  .text-glitch {
+    position: relative;
+  }
+  
+  .text-glitch::before,
+  .text-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+  }
+  
+  .text-glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--color-neon-red);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+  }
+  
+  .text-glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--color-neon-blue);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2.5s infinite linear alternate-reverse;
+  }
+  
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+  
+  .mix-blend-difference {
+    mix-blend-mode: difference;
+  }
+  
+  .mix-blend-multiply {
+    mix-blend-mode: multiply;
+  }
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(42px, 9999px, 44px, 0); }
+  5% { clip: rect(12px, 9999px, 59px, 0); }
+  10% { clip: rect(48px, 9999px, 29px, 0); }
+  15% { clip: rect(42px, 9999px, 73px, 0); }
+  20% { clip: rect(63px, 9999px, 27px, 0); }
+  25% { clip: rect(34px, 9999px, 55px, 0); }
+  30% { clip: rect(86px, 9999px, 73px, 0); }
+  35% { clip: rect(20px, 9999px, 20px, 0); }
+  40% { clip: rect(26px, 9999px, 60px, 0); }
+  45% { clip: rect(25px, 9999px, 66px, 0); }
+  50% { clip: rect(57px, 9999px, 98px, 0); }
+  55% { clip: rect(5px, 9999px, 46px, 0); }
+  60% { clip: rect(82px, 9999px, 31px, 0); }
+  65% { clip: rect(54px, 9999px, 27px, 0); }
+  70% { clip: rect(28px, 9999px, 99px, 0); }
+  75% { clip: rect(45px, 9999px, 69px, 0); }
+  80% { clip: rect(23px, 9999px, 85px, 0); }
+  85% { clip: rect(54px, 9999px, 84px, 0); }
+  90% { clip: rect(45px, 9999px, 47px, 0); }
+  95% { clip: rect(37px, 9999px, 20px, 0); }
+  100% { clip: rect(4px, 9999px, 91px, 0); }
+}
+
+/* Custom Scrollbar for non-lenis fallback */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
