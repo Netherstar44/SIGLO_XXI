@@ -385,7 +385,7 @@ export default function Home() {
                   href="https://motion.dev/docs/react-quick-start"
                 />
                 <BibliographyEntry
-                  num="T10"
+                  num="T10 "
                   text="Lenis — Biblioteca de smooth scrolling para experiencias web fluidas."
                   href="https://lenis.darkroom.engineering/"
                 />
