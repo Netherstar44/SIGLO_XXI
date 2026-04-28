@@ -395,10 +395,11 @@ export default function Home() {
             <div className="mt-24 pt-8 border-t border-black font-mono text-xs flex flex-col md:flex-row justify-between gap-4">
               <div>
                 <p>TIPOGRAFÍAS: ARCHIVO BLACK, FRAUNCES, JETBRAINS MONO</p>
-                <p>FECHA: 202X // EDICIÓN CERO</p>
+                <p>FECHA: 2026 // EDICIÓN DE PRUEBA ESTUDIANTIL</p>
               </div>
               <div className="text-left md:text-right">
-                <p>IMPRESO DIGITALMENTE EN ALGÚN SERVIDOR DE MADRID</p>
+                <p>DESPLEGADO EN VERCEL, V3.0//SIGLO_XXI</p>
+                <p>OPEN SOURCE DISPONIBLE EN MI <a href="https://github.com/Netherstar44/SIGLO_XXI">GIT</a></p>
                 <p className="text-primary font-bold mt-2 hover:text-glitch" data-text="&gt; END OF TRANSMISSION //">
                   &gt; END OF TRANSMISSION //
                 </p>
