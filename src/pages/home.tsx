@@ -58,7 +58,7 @@ export default function Home() {
             </div>
             
             <ZineText 
-              text="INGENIERANDO" 
+              text="INGENIANDO" 
               className="text-5xl md:text-7xl lg:text-[8rem] text-primary whitespace-nowrap"
             />
             <ZineText 
