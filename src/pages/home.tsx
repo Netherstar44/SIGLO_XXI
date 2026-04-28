@@ -385,7 +385,7 @@ export default function Home() {
                   href="https://motion.dev/docs/react-quick-start"
                 />
                 <BibliographyEntry
-                  num="T10 "
+                  num="T10"
                   text="Lenis — Biblioteca de smooth scrolling para experiencias web fluidas."
                   href="https://lenis.darkroom.engineering/"
                 />
@@ -415,8 +415,8 @@ export default function Home() {
 
 function BibliographyEntry({ num, text, href }: { num: string; text: string; href?: string }) {
   return (
-    <div className="break-inside-avoid relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:w-4 before:h-[1px] before:bg-black">
-      <span className="font-mono text-xs absolute -left-2 top-0 bg-zinc-100 px-1 leading-none">[{num}]</span>
+    <div className="break-inside-avoid relative pl-10 before:content-[''] before:absolute before:left-0 before:top-2 before:w-6 before:h-[1px] before:bg-black">
+      <span className="font-mono text-xs absolute -left-2 top-0 bg-zinc-100 px-1 leading-none z-10">[{num}]</span>
       <span>{text}</span>
       {href && (
         <a
