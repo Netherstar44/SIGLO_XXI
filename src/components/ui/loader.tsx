@@ -76,7 +76,7 @@ export function Loader() {
           </div>
 
           <div className="absolute bottom-8 left-8 font-mono text-xs text-muted-foreground">
-            V. 1.0.0 // EDICIÓN CLANDESTINA
+            V. 3.0.0 // SIGLO XXI
           </div>
         </motion.div>
       )}
