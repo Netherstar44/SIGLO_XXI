@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
+console.log("🔥 ESCENA NUEVA ACTIVA 🔥");
 export function AsteroidScene() {
   const asteroidRef = useRef<THREE.Mesh>(null);
   const beamRef = useRef<THREE.Mesh>(null);
