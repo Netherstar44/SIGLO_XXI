@@ -160,6 +160,17 @@ export function CreditsOverlay({
                 </div>
               </section>
 
+              {/* Open Source */}
+              <section>
+                <h3 className="font-mono text-sm text-[#00ffff] border-b border-[#00ffff]/20 pb-2 mb-6">
+                  &lt; CÓDIGO ABIERTO /&gt;
+                </h3>
+                <div className="font-sans text-base text-white/80 p-6 bg-[#030811] border border-white/10 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-[#00ffff]" />
+                  Este proyecto será Open Source, si quieren entender el código se los dejo <a href="https://github.com/Netherstar44/SIGLO_XXI/" target="_blank" rel="noopener noreferrer" className="text-[#00ffff] hover:text-white hover:underline transition-colors font-bold">aquí</a>.
+                </div>
+              </section>
+
               <div className="pt-8 border-t border-white/10 font-mono text-xs text-white/40 flex justify-between">
                 <span>EDICIÓN CERO // SIGLO XXI</span>
                 <span>FIN DEL REGISTRO</span>
