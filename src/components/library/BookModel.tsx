@@ -9,13 +9,15 @@ export function BookModel({
   position, 
   onClick, 
   isSelected,
-  index
+  index,
+  isMobile
 }: { 
   book: typeof libraryBooks[0]; 
   position: [number, number, number];
   onClick: () => void;
   isSelected: boolean;
   index: number;
+  isMobile?: boolean;
 }) {
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
@@ -55,7 +57,7 @@ export function BookModel({
       onClick={(e) => { e.stopPropagation(); onClick(); }}
     >
       {/* Main Cover */}
-      <RoundedBox args={[0.3, 1.6, 1.1]} radius={0.02} smoothness={4} castShadow receiveShadow>
+      <RoundedBox args={[0.3, 1.6, 1.1]} radius={0.02} smoothness={isMobile ? 1 : 2} castShadow={!isMobile} receiveShadow={!isMobile}>
         <meshStandardMaterial 
           color={hovered || isSelected ? new THREE.Color(book.color).lerp(new THREE.Color("white"), 0.15) : book.color} 
           roughness={0.4}
@@ -64,7 +66,7 @@ export function BookModel({
         />
         
         {/* Holographic glowing edges on hover/selection */}
-        {(hovered || isSelected) && (
+        {(hovered || isSelected) && !isMobile && (
           <Edges 
             linewidth={2} 
             threshold={15} 
@@ -74,7 +76,7 @@ export function BookModel({
       </RoundedBox>
       
       {/* Pages block (inset slightly to look like pages inside a hardcover) */}
-      <RoundedBox args={[0.24, 1.54, 1.04]} radius={0.01} smoothness={4} castShadow position={[0.025, 0, 0.02]} receiveShadow>
+      <RoundedBox args={[0.24, 1.54, 1.04]} radius={0.01} smoothness={isMobile ? 1 : 2} castShadow={!isMobile} position={[0.025, 0, 0.02]} receiveShadow={!isMobile}>
         <meshStandardMaterial 
           color="#f4ecd8" 
           roughness={1} 

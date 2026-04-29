@@ -5,11 +5,13 @@ import { BookshelfScene } from "@/components/library/BookshelfScene";
 import { OpenBookView } from "@/components/library/OpenBookView";
 import { CreditsOverlay } from "@/components/library/CreditsOverlay";
 import { ZineText } from "@/components/ui/zine-text";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export default function Home() {
   const [selectedBookId, setSelectedBookId] = useState<string | null>(null);
   const [showCredits, setShowCredits] = useState(false);
   const [mobilePan, setMobilePan] = useState(0);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <>
@@ -40,16 +42,17 @@ export default function Home() {
         {/* 3D Library Scene */}
         <div className="absolute inset-0">
           <Canvas 
-            shadows
-            dpr={[1, 2]} 
+            shadows={!isMobile}
+            dpr={isMobile ? 1 : [1, 1.5]} 
             camera={{ position: [0, 0, 9], fov: 45 }}
-            gl={{ antialias: true, alpha: false }}
+            gl={{ antialias: !isMobile, alpha: false, powerPreference: "high-performance" }}
           >
             <Suspense fallback={null}>
               <BookshelfScene 
                 selectedBookId={selectedBookId}
                 onSelectBook={setSelectedBookId}
                 mobilePan={mobilePan}
+                isMobile={isMobile}
               />
             </Suspense>
           </Canvas>

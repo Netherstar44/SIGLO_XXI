@@ -3,6 +3,7 @@ import { libraryBooks } from "@/data/library-books";
 import { X, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect } from "react";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export function OpenBookView({ 
   bookId, 
@@ -14,6 +15,7 @@ export function OpenBookView({
   onNavigate: (id: string) => void;
 }) {
   const book = libraryBooks.find(b => b.id === bookId);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     if (!bookId) return;
@@ -160,9 +162,10 @@ export function OpenBookView({
               ) : (
                 <>
                   <Canvas 
-                    shadows
-                    dpr={[1, 2]} 
+                    shadows={!isMobile}
+                    dpr={isMobile ? 1 : [1, 1.5]} 
                     camera={{ position: [0, 0, 5], fov: 45 }}
+                    gl={{ antialias: !isMobile, powerPreference: "high-performance" }}
                     className="w-full h-full cursor-grab active:cursor-grabbing z-10"
                   >
                     <ambientLight intensity={1.5} />

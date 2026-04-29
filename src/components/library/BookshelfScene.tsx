@@ -3,16 +3,18 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { BookModel } from "./BookModel";
 import { libraryBooks } from "@/data/library-books";
-import { Environment, Float, PresentationControls } from "@react-three/drei";
+import { Environment, Float, PresentationControls, Text } from "@react-three/drei";
 
 export function BookshelfScene({ 
   selectedBookId, 
   onSelectBook,
-  mobilePan = 0
+  mobilePan = 0,
+  isMobile
 }: { 
   selectedBookId: string | null;
   onSelectBook: (id: string | null) => void;
   mobilePan?: number;
+  isMobile?: boolean;
 }) {
   const groupRef = useRef<THREE.Group>(null);
   
@@ -90,13 +92,13 @@ export function BookshelfScene({
         intensity={2.5} 
         penumbra={0.8} 
         angle={1.2} 
-        castShadow 
-        shadow-mapSize={[2048, 2048]}
+        castShadow={!isMobile} 
+        shadow-mapSize={[isMobile ? 512 : 1024, isMobile ? 512 : 1024]}
         shadow-bias={-0.0001}
         color="#ffebd6" 
       />
-      <pointLight position={[-4, 2, 3]} intensity={1.5} color="#ffaa55" distance={15} castShadow />
-      <pointLight position={[4, -2, 3]} intensity={1.2} color="#ffaa55" distance={10} castShadow />
+      <pointLight position={[-4, 2, 3]} intensity={1.5} color="#ffaa55" distance={15} />
+      <pointLight position={[4, -2, 3]} intensity={1.2} color="#ffaa55" distance={10} />
       
       {/* Subtle futuristic cyan backlighting */}
       <pointLight position={[4, 2, -2]} intensity={2.5} color="#00ffff" distance={10} />
@@ -117,12 +119,38 @@ export function BookshelfScene({
             <boxGeometry args={[10, 0.2, 1.8]} />
             <meshStandardMaterial color="#2d1c11" roughness={0.7} metalness={0.1} />
           </mesh>
+          {/* Top Shelf Title */}
+          <Text 
+            position={[0, 0.6, 0.91]} 
+            fontSize={0.08} 
+            color="#00ffff" 
+            anchorX="center" 
+            anchorY="middle"
+            letterSpacing={0.2}
+            outlineWidth={0.005}
+            outlineColor="#000000"
+          >
+            SIGLO XXI
+          </Text>
 
           {/* Bottom Wooden Shelf Base */}
           <mesh receiveShadow castShadow position={[0, -1.4, 0]}>
             <boxGeometry args={[10, 0.2, 1.8]} />
             <meshStandardMaterial color="#2d1c11" roughness={0.7} metalness={0.1} />
           </mesh>
+          {/* Bottom Shelf Title */}
+          <Text 
+            position={[0, -1.4, 0.91]} 
+            fontSize={0.08} 
+            color="#00ffff" 
+            anchorX="center" 
+            anchorY="middle"
+            letterSpacing={0.2}
+            outlineWidth={0.005}
+            outlineColor="#000000"
+          >
+            DATOS CURIOSOS
+          </Text>
 
           {/* Wooden Shelf Back Panel */}
           <mesh receiveShadow position={[0, -0.4, -0.8]}>
@@ -153,6 +181,7 @@ export function BookshelfScene({
                 position={[startX1 + i * 0.35, 1.45, 0]}
                 isSelected={isSelected}
                 onClick={() => onSelectBook(isSelected ? null : book.id)}
+                isMobile={isMobile}
               />
             );
           })}
@@ -168,6 +197,7 @@ export function BookshelfScene({
                 position={[startX2 + i * 0.35, -0.55, 0]}
                 isSelected={isSelected}
                 onClick={() => onSelectBook(isSelected ? null : book.id)}
+                isMobile={isMobile}
               />
             );
           })}
